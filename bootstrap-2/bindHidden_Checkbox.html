@@ -1,0 +1,50 @@
+<html>
+<head>
+<script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script>
+	function bindHiddenDiv(){
+		$("[name^='hidden_']").each(function(){
+			var name = this.attributes['name'].value;
+			var radioName = name.split('_')[1];
+			
+			if($("input[name="+radioName+"]:checked").attr('name')==null){
+				$("#"+name).toggle();
+			}
+			
+			$("#"+radioName).bind('change',function(){
+				
+				$("#"+radioName+":checked").val();
+			
+				var name = this.attributes['name'].value;
+				$("#hidden_"+name).toggle();
+			});
+
+			console.log(radioName);
+		});
+	}
+</script>
+</head>
+
+<body>
+
+
+<form id="testForm">
+
+	Blabla<input id="musique" type="checkbox" name="musique" value="284" ></input>
+		
+	<div id="hidden_musique" name="hidden_musique" >
+		Blablabagjhieognzoie rgioze gruieo gre
+	</div>
+</form>
+
+</body>
+
+
+<script>
+	$(document).ready(function(){
+		bindHiddenDiv();
+	});
+</script>
+
+
+</html>

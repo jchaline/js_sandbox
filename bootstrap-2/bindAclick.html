@@ -1,0 +1,58 @@
+<html>
+<head>
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<link href="css/bootstrap-responsive.css" rel="stylesheet" type="text/css" media="all">
+<script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
+
+<script>
+	function modalInterceptLink(linkSelector, modalSelector, modalLinkSelector){
+		var href = $(linkSelector).attr('href');
+		
+		$(modalLinkSelector).attr('href',href);
+		
+		$(linkSelector).attr('href','javascript:void(0)');
+		
+		$(linkSelector).click(function(){ 
+			$(modalSelector).modal('show');
+		});
+	}
+</script>
+</head>
+
+<body>
+	<div class="container">
+		<fieldset>
+			<legend>test d'operation avec l'interception click</legend>
+			<div class="row-fluid">
+				<div class="span6 offset2">
+					
+						<a href="http://www.google.en" id="buttonA">
+							aaa
+						</a>
+					
+				</div>
+			</div>
+		</fieldset>
+	</div>
+</body>
+
+<div id="modalIntercept" class="modal hide fade" data-keyboard="false" data-backdrop="static">
+    <div class="modal-body">
+        <p>Attention, redirection</p>
+        <p id="debug-url"></p>
+    </div>
+    <div class="modal-footer">
+        <a id="modalLink" href="" class="btn btn-primary">
+        	suivant
+        </a>
+    </div>
+</div>
+
+
+<script>
+	$(document).ready(function(){
+		modalInterceptLink('#buttonA', '#modalIntercept', '#modalLink')
+	});
+</script>
+</html>
