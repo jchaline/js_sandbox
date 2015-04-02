@@ -45,24 +45,26 @@
                             <div class="col-md-6">
                                 <p>Name: <input type="text" ng-model="name"></p>
                                 <p>Age: <input type="text" ng-model="age"></p>
-                                <p>{{name + " : " + age }}</p>
+                                <p>{{ name + " : " + age }}</p>
                             </div>
                             <div class="col-md-6">
                                 First Name: <input type="text" ng-model="firstName"><br/>
                                 Last Name: <input type="text" ng-model="lastName"><br/>
                                 <br/>
-                                Full Name: {{fullname()}}
+                                Full Name: {{fullname() | uppercase }}
                             </div>
                         </div>
-                        <div>
+                        <hr>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div ng-init="cats=[{id:1, name:'Gala', color:'Noire'},
                                                     {id:2, name:'Jerry',color:'Roux'},
                                                     {id:3, name:'Kiara', color:'Marron'},
                                                     {id:4, name:'Topaze', color:'Blanche cass&eacute;e'},
                                                     ]">
+                                    <p><input type="catName" ng-model="catName" placeholder="search"></p>
                                     <ul>
-                                        <li ng-repeat="cat in cats">
+                                        <li ng-repeat="cat in cats | filter:catName |orderBy:'id' ">
                                             {{ cat.name + " : " + cat.color}}
                                         </li>
                                     </ul>
@@ -86,9 +88,11 @@
             app.controller('myCtrl', function($scope) {
                 $scope.firstName= "John"
                 $scope.lastName= "Doe"
+
                 $scope.fullname = function(){
                     return $scope.firstName + " " + $scope.lastName
                 }
+
                 $scope.names = [
                     {name:'Jani',country:'Norway'},
                     {name:'Hege',country:'Sweden'},
