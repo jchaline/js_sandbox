@@ -33,8 +33,8 @@
             </div>
         </div>
 
-        <div ng-app="myApp" ng-controller="myCtrl" class="container-fluid">
-            <div class="row">
+        <div class="container-fluid">
+            <div ng-app="myApp" ng-controller="myCtrl" class="row">
                 <div id="list-secUser" class="col-md-12" role="main">
                     <fieldset>
                         <legend>
@@ -54,17 +54,40 @@
                                 Full Name: {{firstName + " " + lastName}}
                             </div>
                         </div>
+                        <div>
+                            <div class="col-md-6">
+                                <div ng-init="cats=[{id:1, name:'Gala', color:'Noire'},
+                                                    {id:2, name:'Jerry',color:'Roux'},
+                                                    {id:3, name:'Kiara', color:'Marron'},
+                                                    {id:4, name:'Topaze', color:'Blanche cass&eacute;e'},
+                                                    ]">
+                                    <ul>
+                                        <li ng-repeat="cat in cats">
+                                            {{ cat.name + " : " + cat.color}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
                     </fieldset>
                 </div>
             </div>
         </div>
+
         <script>
             var app = angular.module('myApp', [])
-
             app.controller('myCtrl', function($scope) {
                 $scope.firstName= "John"
                 $scope.lastName= "Doe"
             });
+
+            var clothes = angular.module('clothesApp', [])
+            clothes.controller('clothesController', function($scope) {
+                $scope.basArray = [{"id":1, "label":"Jean classique"}, {"id":2, "label":"Jean bleu"}]
+            });
+
         </script>
     </body>
 </html>
