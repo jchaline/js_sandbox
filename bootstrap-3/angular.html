@@ -51,7 +51,7 @@
                                 First Name: <input type="text" ng-model="firstName"><br/>
                                 Last Name: <input type="text" ng-model="lastName"><br/>
                                 <br/>
-                                Full Name: {{firstName + " " + lastName}}
+                                Full Name: {{fullname()}}
                             </div>
                         </div>
                         <div>
@@ -69,6 +69,11 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
+                                <ul>
+                                    <li ng-repeat="x in names">
+                                        {{ x.name + ', ' + x.country }}
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </fieldset>
@@ -81,13 +86,15 @@
             app.controller('myCtrl', function($scope) {
                 $scope.firstName= "John"
                 $scope.lastName= "Doe"
+                $scope.fullname = function(){
+                    return $scope.firstName + " " + $scope.lastName
+                }
+                $scope.names = [
+                    {name:'Jani',country:'Norway'},
+                    {name:'Hege',country:'Sweden'},
+                    {name:'Kai',country:'Denmark'}
+                ];
             });
-
-            var clothes = angular.module('clothesApp', [])
-            clothes.controller('clothesController', function($scope) {
-                $scope.basArray = [{"id":1, "label":"Jean classique"}, {"id":2, "label":"Jean bleu"}]
-            });
-
         </script>
     </body>
 </html>
