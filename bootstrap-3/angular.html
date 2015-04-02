@@ -38,7 +38,20 @@
                 <div id="list-secUser" class="col-md-12" role="main">
                     <fieldset>
                         <legend>
-                            Test AngularJS
+                            Events
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-6">
+
+                            </div>
+                            <div class="col-md-6">
+
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            Bind input & model
                         </legend>
 
                         <div class="row">
@@ -54,7 +67,11 @@
                                 Full Name: {{fullname() | uppercase }}
                             </div>
                         </div>
-                        <hr>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            Bind Ajax and use Filter / Order
+                        </legend>
                         <div class="row">
                             <div class="col-md-6">
                                 <div ng-init="cats=[{id:1, name:'Gala', color:'Noire'},
@@ -78,11 +95,12 @@
                                 </ul>
 
                                 <p><input type="text" ng-model="countryName" placeholder="search"></p>
-                                <ul>
-                                    <li ng-repeat="x in countries | filter:countryName | orderBy:'Country' ">
-                                        {{ x.Name + ', ' + x.Country }}
-                                    </li>
-                                </ul>
+                                <table class="table table-striped">
+                                    <tr ng-repeat="x in countries | filter:countryName | orderBy:'Country' ">
+                                        <td>{{ x.Name }}</td>
+                                        <td>{{ x.Country }}</td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </fieldset>
