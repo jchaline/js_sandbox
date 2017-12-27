@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>AngularJS Sandbox</title>
+		<meta charset="UTF-8"> 
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <!--[if IE]>
+        <meta http-equiv="X-UA-Compatible" content="IE=9">
+        <![endif]-->
+    </head>
+    <body>
+        <script src="js/angular.js" type="text/javascript" ></script>
+        <script src="js/jquery-1.11.2.min.js" type="text/javascript" ></script>
+        <script src="js/bootstrap.min.js" type="text/javascript" ></script>
+
+
+        <div class="container-fluid">
+            <div ng-app="myApp" ng-controller="myCtrl" class="row">
+                <div id="list-secUser" class="col-md-12" role="main">
+                    <fieldset>
+                        <legend>
+                            Choix de la carte
+                        </legend>
+
+                        <div class="row">
+                            <div class="col-md-6">
+								<ul>
+								   <li ng-repeat="carte in cartes |orderBy:'id' ">
+										<input type="radio" id="choixCarte{{carte.id}}" name='choixCarte' value='{{carte.id}}'/> <label for="choixCarte{{carte.id}}">{{carte.label}}</label>
+								   </li>
+								</ul>
+                            </div>
+                            <div class="col-md-6">
+                               
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            Bonus de la carte
+                        </legend>
+
+                        <div class="row">
+                            <div class="col-md-3">
+								<p>Bonus leader : <input type="text" ng-model="bonusLead"></p>
+                            </div>
+                            <div class="col-md-3">
+                                <p>Bonus % : <input type="text" ng-model="bonusPercent"></p>
+                                <p>Bonus fixe : <input type="text" ng-model="bonusFixe"></p>
+                            </div>
+                            <div class="col-md-3">
+                                <p>Bonus lien : <input type="text" ng-model="bonusLien"></p>
+								<p>Bonus alliés : <input type="text" ng-model="bonusAlly"></p>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            Bind input & model
+                        </legend>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>Name: <input type="text" ng-model="name"></p>
+                                <p>Age: <input type="text" ng-model="age"></p>
+                                <p>{{ name + " : " + age }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                First Name: <input type="text" ng-model="firstName"><br/>
+                                Last Name: <input type="text" ng-model="lastName"><br/>
+                                <br/>
+                                Full Name: {{fullname() | uppercase }}
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            Bind Ajax and use Filter / Order
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div ng-init="cats=[{id:1, name:'Gala', color:'Noire'},
+                                                    {id:2, name:'Jerry',color:'Roux'},
+                                                    {id:3, name:'Kiara', color:'Marron'},
+                                                    {id:4, name:'Topaze', color:'Blanche cass&eacute;e'},
+                                                    ]">
+                                    <p><input type="text" ng-model="catName" placeholder="search"></p>
+                                    <ul>
+                                        <li ng-repeat="cat in cats | filter:catName |orderBy:'id' ">
+                                            {{ cat.name + " : " + cat.color}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <ul>
+                                    <li ng-repeat="x in countriesStatic">
+                                        {{ x.name + ', ' + x.country }}
+                                    </li>
+                                </ul>
+
+                                <p><input type="text" ng-model="countryName" placeholder="search"></p>
+                                <table class="table table-striped">
+                                    <tr ng-repeat="x in countries | filter:countryName | orderBy:'Country' ">
+                                        <td>{{ x.Name }}</td>
+                                        <td>{{ x.Country }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+
+        <script>
+			var CARTES = {0:{id:0, label:'Rosé', attack:15100}, 3:{id:3, label:'Gatai Zamasu', attack:15600}, 1:{id:1, label:'Vegeto Blue', attack:16500}}
+		
+            var URL_AJAX_JSON_COUNTRIES = "http://www.w3schools.com/angular/customers.php"
+            var app = angular.module('myApp', [])
+            app.controller('myCtrl', function($scope, $http) {
+				$scope.cartes = CARTES;
+			
+                $scope.firstName= "John"
+                $scope.lastName= "Doe"
+
+                $scope.fullname = function(){
+                    return $scope.firstName + " " + $scope.lastName
+                }
+
+                $scope.countriesStatic = [
+                    {name:'Jani',country:'Norway'},
+                    {name:'Hege',country:'Sweden'},
+                    {name:'Kai',country:'Denmark'}
+                ];
+
+                $http.get(URL_AJAX_JSON_COUNTRIES)
+                        .success(
+                            function(response) {
+                                $scope.countries = response.records;
+                            }
+                        );
+            });
+        </script>
+    </body>
+</html>
